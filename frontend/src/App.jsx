@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import SweetListPage from './pages/SweetListPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      {/* Navigation Bar (Visible on all pages) */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div className="container">
+          <Link className="navbar-brand" to="/">Sweet Shop</Link>
+          <div className="navbar-nav">
+            <Link className="nav-link" to="/">Home</Link>
+            <Link className="nav-link" to="/admin">Admin</Link>
+            <Link className="btn btn-outline-light ms-3" to="/login">Login</Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Page Content Switcher */}
+      <Routes>
+        <Route path="/" element={<SweetListPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
